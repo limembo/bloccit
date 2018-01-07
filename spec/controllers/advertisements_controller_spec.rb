@@ -2,7 +2,13 @@ require 'rails_helper'
 include RandomData
 RSpec.describe AdvertisementsController, type: :controller do
 
-  let(:my_advertisement) { Advertisement.create!(title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number)}
+  let(:my_advertisement) do
+    Advertisement.create!(
+      title: RandomData.random_sentence,
+      body: RandomData.random_paragraph,
+      price: RandomData.random_number
+      )
+    end
 
   describe "GET #index" do
     it "returns http success" do
