@@ -4,6 +4,8 @@ class PostsController < ApplicationController
 
   before_action :authorize_user, except: [:show, :new, :create]
 
+  before_action :authorize_moderator, only: [:destroy]
+
   def show
     @post = Post.find(params[:id])
   end
@@ -63,6 +65,14 @@ class PostsController < ApplicationController
    def post_params
      params.require(:post).permit(:title, :body)
    end
+
+   def authorize_moderator
+    return unless current_user.moderator?
+
+    post = Post.find(params[:id])
+      flash[:alert] = "This is not allowed for moderators."
+      redirect_to [post.topic, post]
+  end
 
    def authorize_user
     post = Post.find(params[:id])
