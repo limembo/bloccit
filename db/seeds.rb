@@ -49,9 +49,18 @@ puts "#{Post.count}"
 # Create a Unique Comment
 Comment.create_with(title: "Yo this is super dope!").find_or_create_by(body: "Hey, Liane, this comment is one of a kind!")
 
-user = User.first
- user.update_attributes!(
-   email: 'lmembis@gmail.com', # replace this with your personal email
+# Create an admin user
+ admin = User.create!(
+   name:     'Admin User',
+   email:    'admin@example.com',
+   password: 'helloworld',
+   role:     'admin'
+ )
+
+ # Create a member
+ member = User.create!(
+   name:     'Member User',
+   email:    'member@example.com',
    password: 'helloworld'
  )
 
