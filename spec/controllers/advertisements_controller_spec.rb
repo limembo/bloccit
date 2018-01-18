@@ -24,17 +24,17 @@ RSpec.describe AdvertisementsController, type: :controller do
 
   describe "GET show" do
     it "returns http success" do
-      get :show, {id: my_advertisement.id}
+      get :show, params: {id: my_advertisement.id}
       expect(response).to have_http_status(:success)
     end
 
     it "renders the #show view" do
-      get :show, {id: my_advertisement.id}
+      get :show, params: {id: my_advertisement.id}
       expect(response).to render_template :show
     end
 
     it "assigns my_advertisement to @advertisement" do
-      get :show, {id: my_advertisement.id}
+      get :show, params: {id: my_advertisement.id}
       expect(assigns(:advertisement)).to eq(my_advertisement)
     end
   end
@@ -58,16 +58,17 @@ RSpec.describe AdvertisementsController, type: :controller do
 
   describe "POST create" do
     it "increases the number of Advertisement by 1" do
-      expect{post :create, advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}.to change(Advertisement,:count).by(1)
+      expect{post :create, params: {advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}
+     }.to change(Advertisement,:count).by(1)
     end
 
     it "assigns the new advertisement to @advertisement" do
-      post :create, advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}
+      post :create, params: {advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}
       expect(assigns(:advertisement)).to eq Advertisement.last
     end
 
     it "redirects to the new advertisement" do
-      post :create, advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}
+      post :create, params: {advertisement: {title: RandomData.random_sentence, body: RandomData.random_paragraph, price: RandomData.random_number}}
       expect(response).to redirect_to Advertisement.last
     end
   end
