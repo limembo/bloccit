@@ -16,9 +16,4 @@ RSpec.describe WelcomeController, type: :controller do
        expect(response).to render_template("about")
      end
    end
-
-<<<<<<< HEAD
-=======
-  
->>>>>>> checkpoint.24
 end
