@@ -1,28 +1,46 @@
 <div class="row">
-   <div class="col-md-8">
-     <div class="media">
-       <br />
+  <div class="col-md-8">
+    <div class="media">
+      <br />
+<!-- #12 call avatar_url to fetch the current user's avatar-->
+      <% avatar_url = @user.avatar_url(128) %>
+      <% if avatar_url %>
+        <div class="media-left">
+<!-- #13 use Rails' image_tag method to create an <img>-->
+          <%= image_tag avatar_url, class: 'media-object' %>
+        </div>
+      <% end %>
+      <div class="media-body">
+        <h2 class="media-heading"><%= @user.name %></h2>
+        <small>
+          <%= pluralize(@user.posts.count, 'post') %>,
+          <%= pluralize(@user.comments.count, 'comment') %>
+        </small>
+      </div>
+    </div>
+  </div>
+</div>
 
-       <% avatar_url = @user.avatar_url(128) %>
-       <% if avatar_url %>
-         <div class="media-left">
+<!-- #14 display all of the user's posts and comments using partials-->
+<h2>Posts</h2>
+<%= count_posts(@user) %>
 
-           <%= image_tag avatar_url, class: 'media-object' %>
-         </div>
-       <% end %>
-       <div class="media-body">
-         <h2 class="media-heading"><%= @user.name %></h2>
-         <small>
-           <%= pluralize(@user.posts.count, 'post') %>,
-           <%= pluralize(@user.comments.count, 'comment') %>
-         </small>
-       </div>
-     </div>
-   </div>
- </div>
- 
- <h2>Posts</h2>
- <%= render @user.posts %>
+<h2>Comments</h2>
+<%= count_comments(@user) %>
 
- <h2>Comments</h2>
- <%= render @user.comments %>
+<!-- Right-aligned -->
+<div class="media">
+  <div class="media-body">
+    <h2 class="media-heading">Favorited Posts</h2>
+    <%= favorited_posts(@user) %>
+  </div>
+  <div class="media-right">
+    <% avatar_url = @user.avatar_url(128) %>
+    <% if avatar_url %>
+      <div class="media-right">
+    <!-- #13 use Rails' image_tag method to create an <img>-->
+        <%= image_tag avatar_url, class: 'media-object' %>
+      </div>
+    <% end %>
+  </div>
+</div>
