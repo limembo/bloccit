@@ -28,6 +28,8 @@ source 'https://rubygems.org'
  # Used for encrypting passwords
  gem 'bcrypt'
 
+ gem 'figaro', '1.0'
+
 
  # Use SCSS for stylesheets
  gem 'sass-rails', '~> 5.0'
