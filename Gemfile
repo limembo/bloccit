@@ -24,6 +24,7 @@ source 'https://rubygems.org'
  gem 'bootstrap-sass'
 
  gem 'shoulda'
+ gem 'factory_girl_rails', '~> 4.0'
 
  # Used for encrypting passwords
  gem 'bcrypt'

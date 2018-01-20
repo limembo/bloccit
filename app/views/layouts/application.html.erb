@@ -1,42 +1,49 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Bloccit</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <%= csrf_meta_tags %>
+<head>
+  <title>Bloccit</title>
+  <!-- the "viewport meta" tag added inside the <head> instructs browsers on small, high pixel density screens to display our pages at a regular, readable size -->
+  <meta name="viewport" content="width=device-width, iniial-scale=1">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="container">
+    <ul class="nav nav-tabs">
+      <li><%= link_to "Bloccit", root_path %></li>
+      <li><%= link_to "Topics", topics_path %></li>
+      <li><%= link_to "About", about_path %></li>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+      <div class="pull-right user-info">
+        <% if current_user %>
+  <!-- #9 use image_tag and populate it with the result of avatar_url. We set the class to "gravatar" which we will use to style the avatar -->
+          <%= image_tag current_user.avatar_url(48), class: "gravatar" %>
+          <div class="pull-right">
+  <!-- #10 move our pre-existing code into a new  <div class="pull-right"> so that it floats to the right of the avatar -->
+            <%= link_to current_user.name, user_path(current_user) %> <br/> <%= link_to "Sign Out", session_path(current_user), method: :delete %>
+          </div>
+        <% else %>
+          <%= link_to "Sign In", new_session_path %> or
+          <%= link_to "Sign Up", new_user_path %>
+        <% end %>
+      </div>
+    </ul>
 
-  <body>
-    <div class="container">
-     <ul class="nav nav-tabs">
-       <li><%= link_to "Bloccit", root_path %></li>
-       <li><%= link_to "Topics", topics_path %></li>
-       <li><%= link_to "About", about_path %></li>
-       <% if current_user %>
-            <%= image_tag avatar_url(current_user), class: :gravatar %>
-            <li class="pull-right"><%= link_to "#{current_user.name} -Sign Out", session_path(current_user), method: :delete %></li>
-          <% else %>
-            <li class="pull-right"><%= link_to "Sign In", new_session_path %></li>
-            <li class="pull-right"><%= link_to "Sign Up", new_user_path %></li>
-          <% end %>
-   </ul>
-
-   <% if flash[:notice] %>
-       <div class="alert alert-success">
-         <button type="button" class="close" data-dismiss="alert">&times;</button>
-         <%= flash[:notice] %>
-       </div>
-     <% elsif flash[:alert] %>
-       <div class="alert alert-warning">
-         <button type="button" class="close" data-dismiss="alert">&times;</button>
-         <%= flash[:alert] %>
-       </div>
-     <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-success">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:notice] %>
+      </div>
+    <% elsif flash[:alert] %>
+      <div class="alert alert-warning">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
 
     <%= yield %>
   </div>
-  </body>
+
+</body>
 </html>
