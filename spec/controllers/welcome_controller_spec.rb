@@ -17,8 +17,4 @@ RSpec.describe WelcomeController, type: :controller do
      end
    end
 
-<<<<<<< HEAD
-=======
-  
->>>>>>> checkpoint.24
 end
